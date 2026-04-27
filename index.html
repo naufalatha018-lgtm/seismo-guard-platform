@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
     
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -56,7 +59,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero section-full" id="home">
         <div class="hero-bg-lines"></div>
         <div class="glow-blob blob-1"></div>
         <div class="glow-blob blob-2"></div>
@@ -74,33 +77,35 @@
     </section>
 
     <!-- Trust Section -->
-    <section class="trust container">
-        <div class="features-grid">
-            <div class="feature-card glass reveal reveal-up delay-1">
-                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                <h3 data-i18n="trust_realtime_title">Real-time Alerts</h3>
-                <p data-i18n="trust_realtime_desc">Instant notifications delivered within milliseconds of detection.</p>
-            </div>
-            <div class="feature-card glass reveal reveal-up delay-2">
-                <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
-                <h3 data-i18n="trust_reliable_title">Reliable Monitoring</h3>
-                <p data-i18n="trust_reliable_desc">24/7 continuous sensor scanning with zero downtime architecture.</p>
-            </div>
-            <div class="feature-card glass reveal reveal-up delay-3">
-                <div class="feature-icon"><i class="fas fa-mobile-screen"></i></div>
-                <h3 data-i18n="trust_multiplatform_title">Multi-platform</h3>
-                <p data-i18n="trust_multiplatform_desc">Access your dashboard on Android, iOS, Windows, macOS, and Linux.</p>
-            </div>
-            <div class="feature-card glass reveal reveal-up delay-4">
-                <div class="feature-icon"><i class="fas fa-kit-medical"></i></div>
-                <h3 data-i18n="trust_emergency_title">Emergency Ready</h3>
-                <p data-i18n="trust_emergency_desc">Built-in emergency protocols and local safety guidelines.</p>
+    <section class="trust section-full">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card glass reveal reveal-up delay-1">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3 data-i18n="trust_realtime_title">Real-time Alerts</h3>
+                    <p data-i18n="trust_realtime_desc">Instant notifications delivered within milliseconds of detection.</p>
+                </div>
+                <div class="feature-card glass reveal reveal-up delay-2">
+                    <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3 data-i18n="trust_reliable_title">Reliable Monitoring</h3>
+                    <p data-i18n="trust_reliable_desc">24/7 continuous sensor scanning with zero downtime architecture.</p>
+                </div>
+                <div class="feature-card glass reveal reveal-up delay-3">
+                    <div class="feature-icon"><i class="fas fa-mobile-screen"></i></div>
+                    <h3 data-i18n="trust_multiplatform_title">Multi-platform</h3>
+                    <p data-i18n="trust_multiplatform_desc">Access your dashboard on Android, iOS, Windows, macOS, and Linux.</p>
+                </div>
+                <div class="feature-card glass reveal reveal-up delay-4">
+                    <div class="feature-icon"><i class="fas fa-kit-medical"></i></div>
+                    <h3 data-i18n="trust_emergency_title">Emergency Ready</h3>
+                    <p data-i18n="trust_emergency_desc">Built-in emergency protocols and local safety guidelines.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
+    <section class="features section-full" id="features">
         <div class="container">
             <div class="section-header reveal reveal-up">
                 <h2 data-i18n="features_header_title">Precision in Every Second</h2>
@@ -108,22 +113,22 @@
             </div>
             <div class="features-grid">
                 <div class="feature-card reveal reveal-up delay-1">
-                    <i class="fas fa-bell fa-2x color-primary"></i>
+                    <div class="feature-icon"><i class="fas fa-bell"></i></div>
                     <h3 data-i18n="feat_smart_title">Smart Notifications</h3>
                     <p data-i18n="feat_smart_desc">Context-aware alerts that adapt to your location and the intensity of the seismic activity.</p>
                 </div>
                 <div class="feature-card reveal reveal-up delay-2">
-                    <i class="fas fa-house-signal fa-2x"></i>
+                    <div class="feature-icon"><i class="fas fa-house-signal"></i></div>
                     <h3 data-i18n="feat_emergency_title">Emergency Mode</h3>
                     <p data-i18n="feat_emergency_desc">Automatic activation of home safety systems and guidance for immediate protection.</p>
                 </div>
                 <div class="feature-card reveal reveal-up delay-3">
-                    <i class="fas fa-wifi-slash fa-2x"></i>
+                    <div class="feature-icon"><i class="fas fa-wifi-slash"></i></div>
                     <h3 data-i18n="feat_offline_title">Offline Capability</h3>
                     <p data-i18n="feat_offline_desc">Critical alert protocols function even when primary internet connectivity is compromised.</p>
                 </div>
                 <div class="feature-card reveal reveal-up delay-4">
-                    <i class="fas fa-language fa-2x"></i>
+                    <div class="feature-icon"><i class="fas fa-language"></i></div>
                     <h3 data-i18n="feat_multi_title">Multi-language</h3>
                     <p data-i18n="feat_multi_desc">Available in over 15 languages to serve diverse global communities effectively.</p>
                 </div>
@@ -131,8 +136,53 @@
         </div>
     </section>
 
+    <!-- Earthquake Section -->
+    <section class="earthquake section-full" id="earthquake">
+        <div class="container">
+            <div class="section-header reveal reveal-up">
+                <h2 data-i18n="quake_title">Latest Earthquake</h2>
+                <p data-i18n="quake_desc">Real-time data directly from BMKG (Meteorology, Climatology, and Geophysical Agency of Indonesia).</p>
+            </div>
+            
+            <div class="earthquake-container reveal reveal-up">
+                <!-- Latest Earthquake Card -->
+                <div class="quake-card glass" id="quake-details">
+                    <div class="quake-info-item">
+                        <span class="quake-label" data-i18n="quake_location">Location</span>
+                        <div class="quake-value" id="quake-location">---</div>
+                    </div>
+                    <div class="quake-info-item">
+                        <span class="quake-label" data-i18n="quake_magnitude">Magnitude</span>
+                        <div class="magnitude-badge" id="quake-magnitude">0.0</div>
+                    </div>
+                    <div class="quake-info-item">
+                        <span class="quake-label" data-i18n="quake_time">Time & Date</span>
+                        <div class="quake-value" id="quake-time">---</div>
+                    </div>
+                    <div class="quake-info-item">
+                        <span class="quake-label" data-i18n="quake_depth">Depth</span>
+                        <div class="quake-value" id="quake-depth">---</div>
+                    </div>
+                    <div class="quake-info-item">
+                        <span class="quake-label" data-i18n="quake_coordinates">Coordinates</span>
+                        <div class="quake-value" id="quake-coords">---</div>
+                    </div>
+                </div>
+
+                <!-- Map Container -->
+                <div id="quake-map-wrapper">
+                    <div id="quake-map">
+                        <div class="map-placeholder">
+                            <span class="loader"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Hardware Preview Section -->
-    <section class="hardware glass" id="hardware">
+    <section class="hardware section-full" id="hardware">
         <div class="container">
             <div class="hardware-wrapper">
                 <div class="hardware-image reveal reveal-left">
@@ -141,10 +191,10 @@
                 <div class="hardware-info reveal reveal-right">
                     <h2 data-i18n="hardware_title">Powered by IoT Hardware</h2>
                     <p data-i18n="hardware_desc">Our proprietary sensor modules use high-precision MEMS accelerometers to detect even the slightest P-wave vibrations before the destructive S-waves arrive.</p>
-                    <ul style="margin-top: 24px; list-style: none;">
-                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 10px;"></i> <span data-i18n="hardware_item1">Sub-millisecond latency</span></li>
-                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 10px;"></i> <span data-i18n="hardware_item2">Low power consumption (battery backed)</span></li>
-                        <li><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 10px;"></i> <span data-i18n="hardware_item3">Industrial-grade seismic sensors</span></li>
+                    <ul class="hardware-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="hardware_item1">Sub-millisecond latency</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="hardware_item2">Low power consumption (battery backed)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="hardware_item3">Industrial-grade seismic sensors</span></li>
                     </ul>
                 </div>
             </div>
@@ -152,22 +202,22 @@
     </section>
 
     <!-- App Preview Section -->
-    <section class="screenshots">
+    <section class="screenshots section-full">
         <div class="container">
             <div class="section-header reveal reveal-up">
                 <h2 data-i18n="screenshots_title">Intuitive Interface</h2>
                 <p data-i18n="screenshots_desc">Monitor seismic activity and manage your alerts through our clean, modern application dashboard.</p>
             </div>
-            <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <div class="reveal reveal-up delay-1"><img src="assets/images/screenshots/screen1.png" alt="App Screen" style="width:100%; border-radius: 20px;" onerror="this.src='https://via.placeholder.com/300x600/1e293b/94a3b8?text=App+Dashboard'"></div>
-                <div class="reveal reveal-up delay-2"><img src="assets/images/screenshots/screen2.png" alt="App Screen" style="width:100%; border-radius: 20px;" onerror="this.src='https://via.placeholder.com/300x600/1e293b/94a3b8?text=Alert+Screen'"></div>
-                <div class="reveal reveal-up delay-3"><img src="assets/images/screenshots/screen3.png" alt="App Screen" style="width:100%; border-radius: 20px;" onerror="this.src='https://via.placeholder.com/300x600/1e293b/94a3b8?text=Settings'"></div>
+            <div class="screenshots-grid">
+                <div class="screenshot-item reveal reveal-up delay-1"><img src="assets/images/screenshots/screen1.png" alt="App Screen" onerror="this.src='https://via.placeholder.com/300x600/1e293b/94a3b8?text=App+Dashboard'"></div>
+                <div class="screenshot-item reveal reveal-up delay-2"><img src="assets/images/screenshots/screen2.png" alt="App Screen" onerror="this.src='https://via.placeholder.com/300x600/1e293b/94a3b8?text=Alert+Screen'"></div>
+                <div class="screenshot-item reveal reveal-up delay-3"><img src="assets/images/screenshots/screen3.png" alt="App Screen" onerror="this.src='https://via.placeholder.com/300x600/1e293b/94a3b8?text=Settings'"></div>
             </div>
         </div>
     </section>
 
     <!-- Download Section -->
-    <section class="download" id="download">
+    <section class="download section-full" id="download">
         <div class="container">
             <div class="section-header reveal reveal-up">
                 <h2 data-i18n="download_title">Download Seismo Guard</h2>
@@ -178,45 +228,51 @@
                     <i class="fab fa-android"></i>
                     <h3>Android</h3>
                     <p data-i18n="download_android_desc">v2.4.0 (Latest)</p>
-                    <a href="downloads/android/seismo-guard.apk" download class="btn btn-primary" style="width: 100%; margin-top: 20px;">Download APK</a>
+                    <a href="downloads/android/seismo-guard.apk" download class="btn btn-primary w-full">Download APK</a>
                 </div>
                 <div class="download-card glass reveal reveal-up delay-2">
                     <i class="fab fa-apple"></i>
                     <h3 data-i18n="download_ios_title">iOS</h3>
                     <p data-i18n="download_ios_desc">Coming Soon</p>
-                    <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" disabled>App Store</button>
+                    <button class="btn btn-outline w-full" disabled>App Store</button>
                 </div>
                 <div class="download-card glass reveal reveal-up delay-3">
                     <i class="fab fa-windows"></i>
                     <h3>Windows</h3>
                     <p data-i18n="download_windows_desc">v2.3.1</p>
-                    <a href="downloads/windows/seismo-guard.exe" class="btn btn-outline" style="width: 100%; margin-top: 20px;">Download EXE</a>
+                    <a href="downloads/windows/seismo-guard.exe" class="btn btn-outline w-full">Download EXE</a>
                 </div>
                 <div class="download-card glass reveal reveal-up delay-4">
+                    <i class="fab fa-apple"></i>
+                    <h3>macOS</h3>
+                    <p>v2.3.1</p>
+                    <a href="downloads/macos/seismo-guard.dmg" class="btn btn-outline w-full">Download DMG</a>
+                </div>
+                <div class="download-card glass reveal reveal-up delay-5">
                     <i class="fab fa-linux"></i>
                     <h3>Linux</h3>
                     <p data-i18n="download_linux_desc">v2.3.1</p>
-                    <a href="downloads/linux/seismo-guard.AppImage" class="btn btn-outline" style="width: 100%; margin-top: 20px;">AppImage</a>
+                    <a href="downloads/linux/seismo-guard.AppImage" class="btn btn-outline w-full">AppImage</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contact section-full" id="contact">
         <div class="container">
             <div class="contact-wrapper glass reveal reveal-up">
                 <h2 data-i18n="contact_title">Get in Touch</h2>
                 <p data-i18n="contact_desc">Need support or interested in a partnership? Our team is here to help you 24/7.</p>
                 <div class="social-btns">
                     <a href="https://wa.me/6281320271087" class="social-btn" title="WhatsApp Support">
-                        <i class="fab fa-whatsapp fa-2xl"></i>
+                        <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://instagram.com/sismoguardiot" class="social-btn" title="Instagram">
-                        <i class="fab fa-instagram fa-2xl"></i>
+                        <i class="fab fa-instagram"></i>
                     </a>
                     <a href="mailto:sismoguardiot@gmail.com" class="social-btn" title="Email Us">
-                        <i class="fas fa-envelope fa-2xl"></i>
+                        <i class="fas fa-envelope"></i>
                     </a>
                 </div>
             </div>
@@ -224,13 +280,21 @@
     </section>
 
     <!-- CTA Footer Section -->
-    <section class="cta container" style="margin-bottom: 80px;">
-        <div class="glass" style="padding: 80px; border-radius: 30px; text-align: center; background: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(15, 23, 42, 0.8) 100%);">
-            <h2 data-i18n="cta_title" style="font-size: 3rem; margin-bottom: 24px;">Ready to Stay Guarded?</h2>
-            <p data-i18n="cta_desc" style="margin-bottom: 40px; font-size: 1.2rem;">Join thousands of users who trust Seismo Guard for earthquake safety.</p>
-            <a href="#download" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.1rem;" data-i18n="cta_btn">Download Now</a>
+    <section class="cta section-full">
+        <div class="container">
+            <div class="cta-box glass reveal reveal-up">
+                <h2 data-i18n="cta_title">Ready to Stay Guarded?</h2>
+                <p data-i18n="cta_desc">Join thousands of users who trust Seismo Guard for earthquake safety.</p>
+                <a href="#download" class="btn btn-primary btn-lg" data-i18n="cta_btn">Download Now</a>
+            </div>
         </div>
     </section>
+
+    <!-- Mobile Navigation Controls -->
+    <div class="mobile-nav-container">
+        <button id="prev-section" class="mobile-nav-btn" aria-label="Previous Section"><i class="fas fa-chevron-up"></i></button>
+        <button id="next-section" class="mobile-nav-btn" aria-label="Next Section"><i class="fas fa-chevron-down"></i></button>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -268,5 +332,9 @@
     <script src="js/languages.js"></script>
     <script src="js/main.js"></script>
     <script src="js/scroll.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Earthquake Logic -->
+    <script src="js/earthquake.js"></script>
 </body>
 </html>
