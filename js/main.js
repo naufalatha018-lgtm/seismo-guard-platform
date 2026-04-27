@@ -61,92 +61,199 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Smooth scroll for all links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (href === '#') return;
+  // Mobile Native App UX Implementation
+  const appWrapper = document.getElementById('app-wrapper');
+  const allPages = Array.from(document.querySelectorAll('#app-wrapper > section, #app-wrapper > footer'));
+  let currentPageIndex = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let touchStartY = 0;
+  const swipeThreshold = 50;
 
-      e.preventDefault();
-      
-      // Close mobile menu if open
-      if (navbar.classList.contains('menu-active')) {
-        navbar.classList.remove('menu-active');
-        document.body.style.overflow = '';
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  let globalMapInstance = null;
+
+  function goToPage(index) {
+    if (index < 0 || index >= allPages.length) return;
+    
+    currentPageIndex = index;
+    const offset = -currentPageIndex * 100;
+    
+    if (isMobile()) {
+      appWrapper.style.transform = `translateX(${offset}vw)`;
+      // Update active nav link
+      updateActiveNavLink();
+
+      // Fix for Leaflet maps when page becomes visible
+      const targetPage = allPages[currentPageIndex];
+      if (targetPage && (targetPage.id === 'map' || targetPage.id === 'earthquake')) {
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'));
+          if (globalMapInstance) globalMapInstance.invalidateSize();
+        }, 300);
       }
-
-      const target = document.querySelector(href);
+    } else {
+      // Desktop vertical scroll
+      const target = allPages[currentPageIndex];
       if (target) {
-        const offset = window.innerWidth <= 768 ? 0 : 80;
         window.scrollTo({
-          top: target.offsetTop - offset,
+          top: target.offsetTop - 80,
           behavior: 'smooth'
         });
+      }
+    }
+  }
+
+  function updateActiveNavLink() {
+    const currentPage = allPages[currentPageIndex];
+    const sectionId = currentPage.getAttribute('id');
+    
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.classList.remove('active');
+      if (sectionId && link.getAttribute('href').slice(1) === sectionId) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  // Swipe Detection
+  let isScrolling = false;
+
+  document.addEventListener('touchstart', e => {
+    if (!isMobile()) return;
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    isScrolling = false;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (!isMobile()) return;
+    
+    const touchX = e.changedTouches[0].screenX;
+    const touchY = e.changedTouches[0].screenY;
+    
+    const diffX = Math.abs(touchX - touchStartX);
+    const diffY = Math.abs(touchY - touchStartY);
+    
+    // If user is clearly scrolling vertically, mark it
+    if (diffY > diffX && diffY > 10) {
+      isScrolling = true;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    if (!isMobile() || isScrolling) return;
+    touchEndX = e.changedTouches[0].screenX;
+    const touchEndY = e.changedTouches[0].screenY;
+    
+    handleSwipe(touchStartX, touchEndX, touchStartY, touchEndY);
+  }, { passive: true });
+
+  function handleSwipe(startX, endX, startY, endY) {
+    const diffX = endX - startX;
+    const diffY = endY - startY;
+
+    // Strict check: horizontal movement must be significantly greater than vertical
+    if (Math.abs(diffX) > Math.abs(diffY) * 2 && Math.abs(diffX) > swipeThreshold) {
+      if (diffX < 0) {
+        // Swipe Left -> Next Page
+        goToPage(currentPageIndex + 1);
+      } else {
+        // Swipe Right -> Prev Page
+        goToPage(currentPageIndex - 1);
+      }
+    }
+  }
+
+  // Initialize Global Map Placeholder if it exists
+  function initGlobalMap() {
+    const globalMapContainer = document.getElementById('global-map');
+    if (globalMapContainer && typeof L !== 'undefined') {
+        globalMapContainer.innerHTML = '';
+        globalMapInstance = L.map('global-map').setView([0, 115], 3); // Centered on Indonesia/Pacific
+        
+        const isDarkMode = !document.documentElement.classList.contains('light-mode');
+        const tileLayer = isDarkMode 
+            ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+            : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+        L.tileLayer(tileLayer, {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(globalMapInstance);
+        
+        // Add a few placeholder markers for global activity
+        const locations = [
+            { lat: -6.2, lng: 106.8, title: "Jakarta Region" },
+            { lat: 35.6, lng: 139.6, title: "Tokyo Region" },
+            { lat: 34.0, lng: -118.2, title: "Los Angeles Region" }
+        ];
+        
+        locations.forEach(loc => {
+            L.circleMarker([loc.lat, loc.lng], {
+                radius: 8,
+                fillColor: "#ff4444",
+                color: "#fff",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(globalMap).bindPopup(loc.title);
+        });
+        
+        // Fix map size on tab/page change
+        setTimeout(() => globalMap.invalidateSize(), 500);
+    }
+  }
+
+  // Call initGlobalMap
+  if (document.getElementById('global-map')) {
+    initGlobalMap();
+  }
+
+  // Handle Navbar Link Clicks for Mobile
+  document.querySelectorAll('.nav-links a, .logo, .footer-links a, .btn').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      
+      const targetId = href.slice(1);
+      const targetIndex = allPages.findIndex(p => p.id === targetId);
+      
+      if (targetIndex !== -1 && isMobile()) {
+        e.preventDefault();
+        goToPage(targetIndex);
+        
+        // Close mobile menu if open
+        if (navbar.classList.contains('menu-active')) {
+          navbar.classList.remove('menu-active');
+          document.body.style.overflow = '';
+        }
       }
     });
   });
 
-  // Mobile Section Navigation
-  const sections = Array.from(document.querySelectorAll('section, footer'));
-  let currentSectionIndex = 0;
+  // Initial Check
+  if (isMobile()) {
+    document.body.classList.add('mobile-ux');
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    updateActiveNavLink();
+  }
 
-  function updateMobileUX() {
-    if (window.innerWidth <= 768) {
-      document.body.classList.add('mobile-ux');
-    } else {
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    if (!isMobile()) {
+      appWrapper.style.transform = 'none';
       document.body.classList.remove('mobile-ux');
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+    } else {
+      document.body.classList.add('mobile-ux');
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      goToPage(currentPageIndex);
     }
-  }
-
-  window.addEventListener('resize', updateMobileUX);
-  updateMobileUX();
-
-  function scrollToSection(index) {
-    if (index >= 0 && index < sections.length) {
-      currentSectionIndex = index;
-      sections[index].scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  if (nextSectionBtn) {
-    nextSectionBtn.addEventListener('click', () => {
-      const scrollPos = window.scrollY;
-      let nextIndex = sections.findIndex(s => s.offsetTop > scrollPos + 10);
-      if (nextIndex !== -1) scrollToSection(nextIndex);
-    });
-  }
-
-  if (prevSectionBtn) {
-    prevSectionBtn.addEventListener('click', () => {
-      const scrollPos = window.scrollY;
-      let prevIndex = -1;
-      for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i].offsetTop < scrollPos - 10) {
-          prevIndex = i;
-          break;
-        }
-      }
-      if (prevIndex !== -1) scrollToSection(prevIndex);
-    });
-  }
-
-  // Active state on scroll
-  window.addEventListener('scroll', () => {
-    let current = '';
-    const scrollPos = window.scrollY + 150;
-
-    sections.forEach(section => {
-      const sectionId = section.getAttribute('id');
-      if (sectionId && scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-        current = sectionId;
-      }
-    });
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href').slice(1) === current) {
-        link.classList.add('active');
-      }
-    });
   });
 });

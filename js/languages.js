@@ -1,6 +1,7 @@
 const translations = {
   en: {
     nav_home: "Home",
+    nav_map: "Map",
     nav_features: "Features",
     nav_hardware: "Hardware",
     nav_download: "Download",
@@ -11,6 +12,7 @@ const translations = {
     hero_description: "Advanced real-time earthquake detection and alert system powered by IoT technology. Protect what matters most with split-second precision.",
     hero_download: "Download APK",
     hero_github: "View on GitHub",
+    map_desc: "Interactive map showing recent seismic activities worldwide.",
     trust_realtime_title: "Real-time Alerts",
     trust_realtime_desc: "Instant notifications delivered within milliseconds of detection.",
     trust_reliable_title: "Reliable Monitoring",
@@ -64,6 +66,7 @@ const translations = {
   },
   id: {
     nav_home: "Beranda",
+    nav_map: "Peta",
     nav_features: "Fitur",
     nav_hardware: "Perangkat Keras",
     nav_download: "Unduh",
@@ -74,6 +77,7 @@ const translations = {
     hero_description: "Sistem deteksi dan peringatan gempa bumi real-time canggih yang didukung oleh teknologi IoT. Lindungi yang paling berharga dengan presisi sepersekian detik.",
     hero_download: "Unduh APK",
     hero_github: "Lihat di GitHub",
+    map_desc: "Peta interaktif yang menunjukkan aktivitas seismik terkini di seluruh dunia.",
     trust_realtime_title: "Peringatan Real-time",
     trust_realtime_desc: "Notifikasi instan dikirimkan dalam milidetik setelah deteksi.",
     trust_reliable_title: "Pemantauan Andal",
