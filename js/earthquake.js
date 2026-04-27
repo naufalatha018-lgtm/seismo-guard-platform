@@ -26,13 +26,28 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {string} magnitude 
      */
     function initMap(lat, lng, location, magnitude) {
+        if (!quakeMapContainer) return;
+
+        // If map already exists, just update view and marker
+        if (map) {
+            map.setView([lat, lng], 7);
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+                marker.setPopupContent(`<b>${location}</b><br>Magnitude: ${magnitude}`);
+            }
+            return;
+        }
+
         // Clear placeholder
         quakeMapContainer.innerHTML = '';
 
         // Initialize map centered on earthquake location
         map = L.map('quake-map').setView([lat, lng], 7);
+        
+        // Export to window for global access (resizing)
+        window.earthquakeMap = map;
 
-        // Add Tile Layer (CartoDB Dark Matter for professional dark look)
+        // Add Tile Layer
         const isDarkMode = !document.documentElement.classList.contains('light-mode');
         const tileLayer = isDarkMode 
             ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
@@ -102,13 +117,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error fetching earthquake data:', error);
-            quakeMapContainer.innerHTML = `
-                <div class="map-placeholder" style="flex-direction: column; gap: 10px;">
-                    <i class="fas fa-exclamation-triangle fa-2x" style="color: var(--accent);"></i>
-                    <p>Failed to load earthquake data.</p>
-                    <button class="btn btn-outline btn-sm" onclick="location.reload()">Retry</button>
-                </div>
-            `;
+            if (quakeMapContainer) {
+                quakeMapContainer.innerHTML = `
+                    <div class="map-placeholder" style="flex-direction: column; gap: 10px;">
+                        <i class="fas fa-exclamation-triangle fa-2x" style="color: var(--accent);"></i>
+                        <p>Failed to load earthquake data.</p>
+                        <button class="btn btn-outline btn-sm" onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
         }
     }
 

@@ -34,9 +34,9 @@
         <div class="nav-center">
             <ul class="nav-links">
                 <li><a href="#home" data-i18n="nav_home">Home</a></li>
-                <li><a href="#map" data-i18n="nav_map">Map</a></li>
                 <li><a href="#features" data-i18n="nav_features">Features</a></li>
                 <li><a href="#hardware" data-i18n="nav_hardware">Hardware</a></li>
+                <li><a href="#map" data-i18n="nav_map">Map</a></li>
                 <li><a href="#download" data-i18n="nav_download">Download</a></li>
                 <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
             </ul>
@@ -72,26 +72,8 @@
                     <h1 data-i18n="hero_title">Seismo Guard</h1>
                     <p class="description" data-i18n="hero_description">Advanced real-time earthquake detection and alert system powered by IoT technology. Protect what matters most with split-second precision.</p>
                     <div class="hero-btns">
-                        <a href="downloads/android/seismo-guard.apk" download class="btn btn-primary pulse"><i class="fab fa-android"></i> <span data-i18n="hero_download">Download APK</span></a>
+                        <a href="#download" class="btn btn-primary pulse"><i class="fab fa-android"></i> <span data-i18n="hero_download">Download APK</span></a>
                         <a href="https://github.com/naufalatha018-lgtm/earthquake-detector" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> <span data-i18n="hero_github">View on GitHub</span></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Map Section -->
-        <section class="map section-full" id="map">
-            <div class="container">
-                <div class="section-header reveal reveal-up">
-                    <h2 data-i18n="nav_map">Global Seismic Map</h2>
-                    <p data-i18n="map_desc">Interactive map showing recent seismic activities worldwide.</p>
-                </div>
-                <div class="map-container-full glass reveal reveal-up">
-                    <div id="global-map" style="height: 100%; min-height: 400px; border-radius: 16px;">
-                        <div class="map-placeholder">
-                            <span class="loader"></span>
-                            <p>Global Map Loading...</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -157,51 +139,6 @@
             </div>
         </section>
 
-        <!-- Earthquake Section -->
-        <section class="earthquake section-full" id="earthquake">
-            <div class="container">
-                <div class="section-header reveal reveal-up">
-                    <h2 data-i18n="quake_title">Latest Earthquake</h2>
-                    <p data-i18n="quake_desc">Real-time data directly from BMKG (Meteorology, Climatology, and Geophysical Agency of Indonesia).</p>
-                </div>
-                
-                <div class="earthquake-container reveal reveal-up">
-                    <!-- Latest Earthquake Card -->
-                    <div class="quake-card glass" id="quake-details">
-                        <div class="quake-info-item">
-                            <span class="quake-label" data-i18n="quake_location">Location</span>
-                            <div class="quake-value" id="quake-location">---</div>
-                        </div>
-                        <div class="quake-info-item">
-                            <span class="quake-label" data-i18n="quake_magnitude">Magnitude</span>
-                            <div class="magnitude-badge" id="quake-magnitude">0.0</div>
-                        </div>
-                        <div class="quake-info-item">
-                            <span class="quake-label" data-i18n="quake_time">Time & Date</span>
-                            <div class="quake-value" id="quake-time">---</div>
-                        </div>
-                        <div class="quake-info-item">
-                            <span class="quake-label" data-i18n="quake_depth">Depth</span>
-                            <div class="quake-value" id="quake-depth">---</div>
-                        </div>
-                        <div class="quake-info-item">
-                            <span class="quake-label" data-i18n="quake_coordinates">Coordinates</span>
-                            <div class="quake-value" id="quake-coords">---</div>
-                        </div>
-                    </div>
-
-                    <!-- Map Container -->
-                    <div id="quake-map-wrapper">
-                        <div id="quake-map">
-                            <div class="map-placeholder">
-                                <span class="loader"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Hardware Preview Section -->
         <section class="hardware section-full" id="hardware">
             <div class="container">
@@ -217,6 +154,51 @@
                             <li><i class="fas fa-check-circle"></i> <span data-i18n="hardware_item2">Low power consumption (battery backed)</span></li>
                             <li><i class="fas fa-check-circle"></i> <span data-i18n="hardware_item3">Industrial-grade seismic sensors</span></li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section (Unified Layout) -->
+        <section class="map section-full" id="map">
+            <div class="container">
+                <div class="section-header reveal reveal-up">
+                    <h2 data-i18n="quake_title">Latest Earthquake</h2>
+                    <p data-i18n="quake_desc">Real-time data directly from BMKG (Meteorology, Climatology, and Geophysical Agency of Indonesia).</p>
+                </div>
+                <div class="map-layout reveal reveal-up">
+                    <div class="map-info">
+                        <!-- Latest Earthquake Card -->
+                        <div class="quake-card glass" id="quake-details">
+                            <div class="quake-info-item">
+                                <span class="quake-label" data-i18n="quake_location">Location</span>
+                                <div class="quake-value" id="quake-location">---</div>
+                            </div>
+                            <div class="quake-info-item">
+                                <span class="quake-label" data-i18n="quake_magnitude">Magnitude</span>
+                                <div class="magnitude-badge" id="quake-magnitude">0.0</div>
+                            </div>
+                            <div class="quake-info-item">
+                                <span class="quake-label" data-i18n="quake_time">Time & Date</span>
+                                <div class="quake-value" id="quake-time">---</div>
+                            </div>
+                            <div class="quake-info-item">
+                                <span class="quake-label" data-i18n="quake_depth">Depth</span>
+                                <div class="quake-value" id="quake-depth">---</div>
+                            </div>
+                            <div class="quake-info-item">
+                                <span class="quake-label" data-i18n="quake_coordinates">Coordinates</span>
+                                <div class="quake-value" id="quake-coords">---</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <div id="quake-map">
+                            <div class="map-placeholder">
+                                <span class="loader"></span>
+                                <p>Loading Seismic Map...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -296,6 +278,36 @@
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
+
+                    <!-- Mobile-only Footer Content -->
+                    <div class="mobile-footer-content">
+                        <div class="footer-brand">
+                            <h3>SEISMO<span>GUARD</span></h3>
+                            <p data-i18n="footer_brand_desc">The world's most accessible early warning system for seismic activity. Built with passion for human safety.</p>
+                        </div>
+                        <div class="footer-links-wrapper">
+                            <div class="footer-links">
+                                <h4 data-i18n="footer_product">Product</h4>
+                                <ul>
+                                    <li><a href="#home" data-i18n="nav_home">Home</a></li>
+                                    <li><a href="#features" data-i18n="nav_features">Features</a></li>
+                                    <li><a href="#hardware" data-i18n="nav_hardware">Hardware</a></li>
+                                    <li><a href="#download" data-i18n="nav_download">Downloads</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-links">
+                                <h4 data-i18n="footer_company">Company</h4>
+                                <ul>
+                                    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                                    <li><a href="#" data-i18n="footer_privacy">Privacy Policy</a></li>
+                                    <li><a href="#" data-i18n="footer_terms">Terms of Service</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="copyright">
+                            <p data-i18n="footer_copyright">&copy; 2026 Seismo Guard IoT System. All rights reserved.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -311,8 +323,8 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer id="footer">
+        <!-- Footer (Desktop Only) -->
+        <footer id="footer" class="desktop-footer">
             <div class="container">
                 <div class="footer-grid">
                     <div class="footer-brand">
@@ -335,6 +347,9 @@
                             <li><a href="#" data-i18n="footer_privacy">Privacy Policy</a></li>
                             <li><a href="#" data-i18n="footer_terms">Terms of Service</a></li>
                         </ul>
+                    </div>
+                    <div class="footer-placeholder">
+                        <!-- Optional Column 4 -->
                     </div>
                 </div>
                 <div class="copyright">
